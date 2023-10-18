@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import styles from './page.module.css'
 
-function getCurrentDate() {}
+function getCurrentDate() {
+	return 'test'
+}
 
 export default function Home() {
 	const date = getCurrentDate()
@@ -57,13 +59,37 @@ export default function Home() {
 							<div className={styles.weatherIcon}>
 								{showWeatherAlert() ? (
 									<>
-										<i className="wi wi-day-cloudy"></i>
-										<FontAwesomeIcon icon={faExclamationTriangle} />
+										<div className={styles.icon_and_weatherInfo}>
+											<div className={styles.weatherIcon}>
+												{weatherData?.weather[0]?.description === 'rain' ||
+												weatherData?.weather[0]?.description === 'fog' ? (
+													<i
+														className={`wi wi-day-${weatherData?.weather[0]?.description}`}
+													></i>
+												) : (
+													<i className="wi wi-day-cloudy"></i>
+												)}
+											</div>
+											<div className={styles.weatherInfo}>
+												<div className={styles.temperature}>
+													<span>
+														{(weatherData?.main?.temp - 273.5).toFixed(2) +
+															String.fromCharCode(176)}
+													</span>
+												</div>
+												<div className={styles.weatherCondition}>
+													{weatherData?.weather[0]?.description?.toUpperCase()}
+												</div>
+											</div>
+										</div>
+										<div className={styles.place}>{weatherData?.name}</div>
+										<div className={styles.date}>{date}</div>
 									</>
 								) : (
 									<i className="wi wi-day-cloudy"></i>
 								)}
 							</div>
+
 							<div className={styles.weatherInfo}>
 								<div>
 									<span>
