@@ -11,7 +11,7 @@ function getCurrentDate() {
 export default function Home() {
 	const date = getCurrentDate()
 	const [weatherData, setWeatherData] = useState(null)
-	const [city, setCity] = useState('caruaru')
+	const [city, setCity] = useState('recife')
 
 	function showWeatherAlert() {
 		if (!weatherData || !weatherData.weather || !weatherData.weather[0]) {
@@ -46,7 +46,7 @@ export default function Home() {
 	}
 
 	useEffect(() => {
-		fetchData('caruaru')
+		fetchData('recife')
 	}, [])
 
 	return (
