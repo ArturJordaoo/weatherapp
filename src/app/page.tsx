@@ -4,9 +4,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import styles from './page.module.css'
 
+interface WeatherData {
+  main: {
+    temp: number;
+  };
+  weather: {
+    description: string;
+  }[];
+  name: string;
+  // Add other necessary properties
+}
+
 function getCurrentDate() {
 	const currentDate = new Date()
-	const options = { month: 'long' } as Intl.DateTimeFormatOptions
+	const options = { month: 'long' } as Intl.DateTimeFormatOptions;
 	const monthName = currentDate.toLocaleString('pt-br', options)
 	const date = new Date().getDate() + ', ' + monthName
 	return date
@@ -14,7 +25,7 @@ function getCurrentDate() {
 
 export default function Home() {
 	const date = getCurrentDate()
-	const [weatherData, setWeatherData] = useState(null)
+	const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
 	const [city, setCity] = useState('recife')
 
 	function showWeatherAlert() {
@@ -22,7 +33,7 @@ export default function Home() {
 			return false
 		}
 
-		const condition = weatherData.weather[0].main.toLowerCase()
+		const condition = weatherData.weather[0].description.toLowerCase()
 
 		// Check for specific weather conditions to show the alert
 		switch (condition) {
@@ -37,27 +48,30 @@ export default function Home() {
 		}
 	}
 
-	async function fetchData(cityName) {
+	async function fetchData(cityName: string): Promise<void> {
 		try {
 			const response = await fetch(
 				'http://localhost:3000/api/weather?address=' + cityName,
-			)
-			const jsonData = (await response.json()).data
-			setWeatherData(jsonData)
+			);
+			const jsonData: { data: WeatherData } = await response.json();
+			setWeatherData(jsonData.data);
 		} catch (error) {
-			console.error('Error fetching data:', error)
+			console.error('Error fetching data:', error);
 		}
 	}
 
-	async function fetchDataByCoordinates(latitude, longitude) {
+	async function fetchDataByCoordinates(
+		latitude: number,
+		longitude: number,
+	): Promise<void> {
 		try {
 			const response = await fetch(
 				`http://localhost:3000/api/weather?lat=${latitude}&lon=${longitude}`,
-			)
-			const jsonData = (await response.json()).data
-			setWeatherData(jsonData)
+			);
+			const jsonData: { data: WeatherData } = await response.json();
+			setWeatherData(jsonData.data);
 		} catch (error) {
-			console.error('Error fetching data:', error)
+			console.error('Error fetching data:', error);
 		}
 	}
 
@@ -65,15 +79,15 @@ export default function Home() {
 		if ('geolocation' in navigator) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
-					const { latitude, longitude } = position.coords
-					fetchDataByCoordinates(latitude, longitude)
+					const { latitude, longitude } = position.coords;
+					fetchDataByCoordinates(latitude, longitude);
 				},
 				(error) => {
-					console.error('Error getting geolocation:', error)
+					console.error('Error getting geolocation:', error);
 				},
-			)
+			);
 		}
-	}, [])
+	}, []);
 
 	return (
 		<main className={styles.main}>
@@ -81,8 +95,8 @@ export default function Home() {
 				<form
 					className={styles.weatherLocation}
 					onSubmit={(e) => {
-						e.preventDefault()
-						fetchData(city)
+						e.preventDefault();
+						fetchData(city);
 					}}
 				>
 					<input
@@ -94,7 +108,7 @@ export default function Home() {
 						onChange={(e) => setCity(e.target.value)}
 					/>
 					<button className={styles.search_button} type="submit">
-						Seach
+						Search
 					</button>
 				</form>
 				{weatherData && weatherData.weather && weatherData.weather[0] ? (
@@ -130,5 +144,5 @@ export default function Home() {
 				)}
 			</article>
 		</main>
-	)
+	);
 }
