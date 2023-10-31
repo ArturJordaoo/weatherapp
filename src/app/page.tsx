@@ -6,7 +6,7 @@ import styles from './page.module.css'
 
 function getCurrentDate() {
 	const currentDate = new Date()
-	const options = { month: 'long' }
+	const options = { month: 'long' } as Intl.DateTimeFormatOptions
 	const monthName = currentDate.toLocaleString('pt-br', options)
 	const date = new Date().getDate() + ', ' + monthName
 	return date
