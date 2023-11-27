@@ -1,23 +1,23 @@
-'use client'
+/* use client */
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import styles from './page.module.css'
 
 interface WeatherData {
-  main: {
-    temp: number;
-  };
-  weather: {
-    description: string;
-  }[];
-  name: string;
-  // Add other necessary properties
+	main: {
+		temp: number
+	}
+	weather: {
+		description: string
+	}[]
+	name: string
 }
 
 function getCurrentDate() {
 	const currentDate = new Date()
-	const options = { month: 'long' } as Intl.DateTimeFormatOptions;
+	const options = { month: 'long' } as Intl.DateTimeFormatOptions
 	const monthName = currentDate.toLocaleString('pt-br', options)
 	const date = new Date().getDate() + ', ' + monthName
 	return date
@@ -50,13 +50,12 @@ export default function Home() {
 
 	async function fetchData(cityName: string): Promise<void> {
 		try {
-			const response = await fetch(
-				'http://localhost:3000/api/weather?address=' + cityName,
-			);
-			const jsonData: { data: WeatherData } = await response.json();
-			setWeatherData(jsonData.data);
+			const response = await axios.get(
+				`http://localhost:3000/api/weather?address=${cityName}`,
+			)
+			setWeatherData(response.data)
 		} catch (error) {
-			console.error('Error fetching data:', error);
+			console.error('Error fetching data:', error)
 		}
 	}
 
@@ -65,13 +64,12 @@ export default function Home() {
 		longitude: number,
 	): Promise<void> {
 		try {
-			const response = await fetch(
+			const response = await axios.get(
 				`http://localhost:3000/api/weather?lat=${latitude}&lon=${longitude}`,
-			);
-			const jsonData: { data: WeatherData } = await response.json();
-			setWeatherData(jsonData.data);
+			)
+			setWeatherData(response.data)
 		} catch (error) {
-			console.error('Error fetching data:', error);
+			console.error('Error fetching data:', error)
 		}
 	}
 
@@ -79,15 +77,18 @@ export default function Home() {
 		if ('geolocation' in navigator) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
-					const { latitude, longitude } = position.coords;
-					fetchDataByCoordinates(latitude, longitude);
+					const { latitude, longitude } = position.coords
+					console.log('Geolocation successful. Fetching data...')
+					fetchDataByCoordinates(latitude, longitude)
 				},
 				(error) => {
-					console.error('Error getting geolocation:', error);
+					console.error('Error getting geolocation:', error)
 				},
-			);
+			)
+		} else {
+			console.error('Geolocation is not supported in this browser.')
 		}
-	}, []);
+	}, [])
 
 	return (
 		<main className={styles.main}>
@@ -95,8 +96,8 @@ export default function Home() {
 				<form
 					className={styles.weatherLocation}
 					onSubmit={(e) => {
-						e.preventDefault();
-						fetchData(city);
+						e.preventDefault()
+						fetchData(city)
 					}}
 				>
 					<input
@@ -144,5 +145,5 @@ export default function Home() {
 				)}
 			</article>
 		</main>
-	);
+	)
 }
