@@ -1,7 +1,6 @@
-/* use client */
+'use client'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import styles from './page.module.css'
 
@@ -13,6 +12,7 @@ interface WeatherData {
 		description: string
 	}[]
 	name: string
+	// Add other necessary properties
 }
 
 function getCurrentDate() {
@@ -50,10 +50,9 @@ export default function Home() {
 
 	async function fetchData(cityName: string): Promise<void> {
 		try {
-			const response = await axios.get(
-				`http://localhost:3000/api/weather?address=${cityName}`,
-			)
-			setWeatherData(response.data)
+			const response = await fetch('/api/weather?address=' + cityName)
+			const jsonData: { data: WeatherData } = await response.json()
+			setWeatherData(jsonData.data)
 		} catch (error) {
 			console.error('Error fetching data:', error)
 		}
@@ -64,10 +63,11 @@ export default function Home() {
 		longitude: number,
 	): Promise<void> {
 		try {
-			const response = await axios.get(
+			const response = await fetch(
 				`http://localhost:3000/api/weather?lat=${latitude}&lon=${longitude}`,
 			)
-			setWeatherData(response.data)
+			const jsonData: { data: WeatherData } = await response.json()
+			setWeatherData(jsonData.data)
 		} catch (error) {
 			console.error('Error fetching data:', error)
 		}
@@ -78,15 +78,12 @@ export default function Home() {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
 					const { latitude, longitude } = position.coords
-					console.log('Geolocation successful. Fetching data...')
 					fetchDataByCoordinates(latitude, longitude)
 				},
 				(error) => {
 					console.error('Error getting geolocation:', error)
 				},
 			)
-		} else {
-			console.error('Geolocation is not supported in this browser.')
 		}
 	}, [])
 
