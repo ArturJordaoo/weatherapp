@@ -64,7 +64,7 @@ export default function Home() {
 	): Promise<void> {
 		try {
 			const response = await fetch(
-				`http://localhost:3000/api/weather?lat=${latitude}&lon=${longitude}`,
+				`/api/weather?lat=${latitude}&lon=${longitude}`,
 			)
 			const jsonData: { data: WeatherData } = await response.json()
 			setWeatherData(jsonData.data)
