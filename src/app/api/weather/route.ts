@@ -13,7 +13,7 @@ export async function GET(request: any) {
 			address +
 			'&lang=pt_br'+
 			'&appid=' +
-			'83c6abdcf2161f1435149e9cff3adbc9'
+			'83c6abdcf2161f1435149e9cff3adbc9'	
 	} else {
 		url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=pt_br&appid=83c6abdcf2161f1435149e9cff3adbc9`
 	}
