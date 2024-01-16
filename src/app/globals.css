@@ -1,4 +1,6 @@
 :root {
-  background-image: url(../../public/backgroung.jpg);
-  background-size: cover;
+	background-image: url(../../public/backgroung.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	min-height: 100vh;
 }
