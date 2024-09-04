@@ -1,12 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 
-.global-styles {
-  --primary-bg: #fdff78;
-  --secondary-bg: #cfbb21;
-  --text-color: #080705;
-  --button-bg: #080705;
-  --button-text: #fff;
-}
+
 
 .main {
   display: flex;
@@ -40,14 +34,18 @@
   justify-content: center;
   border-radius: 1.25rem;
   padding: 2rem;
+  margin-top: 1.5rem;
 }
 
 .weatherLocation button {
-  background: var(--button-bg);
-  color: var(--button-text);
+  background-color: white;
   border: 1px solid transparent;
+  padding: 0;
 }
-
+.weatherLocation button:hover{
+  background-color: rgb(184, 188, 177);
+  font-weight: high;
+}
 .weatherLocation input:focus {
   outline: 0 none;
 }
@@ -68,11 +66,12 @@
 }
 
 .search_button {
-  width: 100%;
+  color: var(--button-text);
+  width: 60%;
   height: 2.5rem;
   border-radius: 1.25rem;
   cursor: pointer;
-  margin-top: 1rem;
+  margin: 0 20px;
 }
 
 .icon_and_weatherInfo {
@@ -94,6 +93,7 @@
 }
 
 .temperature {
+  text-align: center;
   font-size: 2rem;
   color: var(--text-color);
 }

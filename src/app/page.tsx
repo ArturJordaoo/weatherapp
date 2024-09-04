@@ -2,17 +2,17 @@
 'use client'
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
-import {CloudSun, CloudFog} from "@phosphor-icons/react";
+import Image from 'next/image';
 
 interface WeatherData {
-	main: {
-		temp: number
-	}
-	weather: {
-		description: string
-	}[]
-	name: string
-	// Add other necessary properties
+  main: {
+    temp: number;
+  };
+  weather: {
+    description: string;
+    icon: string; 
+  }[];
+  name: string;
 }
 
 function getCurrentDate() {
@@ -94,16 +94,12 @@ export default function Home() {
 						<>
 							<div className={styles.icon_and_weatherInfo}>
 								<div className={styles.weatherIcon}>
-									{weatherData?.weather[0]?.description === 'nublado'? <CloudSun size={32} /> : null ||
-                  weatherData?.weather[0]?.description === 'nuvens dispersas'?
-                  <CloudFog size={32} /> : null 
-									/*  ? (
-										<i
-											className={`wi wi-day-${weatherData?.weather[0]?.description}`}
-										></i>
-									) : (
-										<CloudSun size={32} />
-									) */}
+								<Image
+  src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
+  alt='/'
+  width='100'
+  height='100'
+/>
 								</div>
 								<div className={styles.weatherInfo}>
 									<div className={styles.temperature}>
