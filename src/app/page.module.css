@@ -11,7 +11,6 @@
 }
 
 .widget {
-  min-height: 600px;
   width: 100%;
   max-width: 400px;
   background: var(--primary-bg-color);
