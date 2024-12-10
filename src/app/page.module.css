@@ -1,183 +1,148 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 
-
-
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding: 2rem;
-  max-height: 100vh;
-  margin: 0;
-  overflow: hidden; /*
-   Hide any overflowing content */
+  width: 100%;
+  height: 100vh;
+  padding: var(--widget-padding);
+  overflow-y: auto;
 }
 
 .widget {
-  position: fixed;
-  height: 32rem;
-  max-height: 100%;
-  width: 30rem;
-  font-family: 'Noto Sans', sans-serif;
-  background: linear-gradient(120deg, #fdff78, #cfbb21);
-  border-radius: 1.25rem;
-  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3), 0 6px 6px 0 rgba(0, 0, 0, 0.15);
-  max-width: 100%;
-  margin: 2rem;
-  overflow: hidden; /* Hide any overflowing content */
-}
-
-.weatherLocation {
+  width: 100%;
+  max-width: 400px;
+  background: var(--primary-bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: var(--widget-padding);
+  text-align: center;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  border-radius: 1.25rem;
-  padding: 2rem;
-  margin-top: 1.5rem;
-}
-
-.weatherLocation button {
-  background-color: white;
-  border: 1px solid transparent;
-  padding: 0;
-}
-.weatherLocation button:hover{
-  background-color: rgb(184, 188, 177);
-  font-weight: high;
-}
-.weatherLocation input:focus {
-  outline: 0 none;
-}
-
-.widget .weatherIcon {
-  height: 20%;
-  border-top-left-radius: 1.25rem;
-  border-top-right-radius: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
   color: var(--text-color);
 }
 
-.widget .weatherIcon i {
-  padding-top: 1.7rem;
+.weatherLocation {
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.input_field {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  text-align: center;
+  transition: border 0.3s ease;
+}
+
+.input_field:focus {
+  outline: none;
+  border-color: #888;
 }
 
 .search_button {
-  color: var(--button-text);
-  width: 60%;
-  height: 2.5rem;
-  border-radius: 1.25rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--border-radius);
+  border: none;
+  background-color: #fff;
   cursor: pointer;
-  margin: 0 20px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.search_button:hover {
+  background-color: #e0e0e0;
 }
 
 .icon_and_weatherInfo {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 1rem;
-  margin-top: 1rem;
 }
 
-.input_field {
-  width: 100%;
-  border-radius: 1.25rem;
-  border: none;
-  height: 2.5rem;
-  text-align: center;
-  font-size: 1rem;
+.weatherIcon {
+  width: 100px;
+  height: 100px;
+  margin-top: 1rem;
 }
 
 .temperature {
-  text-align: center;
   font-size: 2rem;
-  color: var(--text-color);
+  font-weight: bold;
+  color: #444;
 }
 
 .place {
-  text-align: center;
-  font-size: 2rem;
-  margin-top: 1rem;
-  color: var(--text-color);
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
-.weatherCondition {
-  color: var(--text-color);
-}
-
+.weatherCondition,
 .date {
-  text-align: center;
   font-size: 1rem;
-  margin-top: 1rem;
-  color: var(--text-color);
+  color: #666;
 }
 
-@media (max-width: 1200px) {
+.details_button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.details_button:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detailsDropdown {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  color: #444;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
   .main {
-    position: relative;
-    height: 80vh;
-    width: clamp(300px, 60%, 600px);
-    margin: 0 auto;
-    max-height: 100vh;
-    overflow: hidden; /* Hide any overflowing content */
+    padding: 1rem;
   }
 
   .widget {
     width: 90%;
-    height: 85vh; /* Adjust the height as needed */
-    margin-bottom: 5rem;
+    padding: 1rem;
   }
 
-  .icon_and_weatherInfo {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .weatherIcon {
-    height: 20%;
-    font-size: 3rem; /* Adjusted font size for the weather icon */
+  .input_field,
+  .search_button {
+    font-size: 0.9rem;
   }
 
   .temperature {
-    font-size: 2rem;
-  }
-
-  .weatherCondition {
-    font-size: 1rem;
+    font-size: 1.8rem;
   }
 
   .place {
-    font-size: 2rem;
-    margin-top: 1rem;
-  }
-
-  .date {
-    font-size: 1rem;
-    margin-top: 1rem;
+    font-size: 1.3rem;
   }
 }
 
-@media (max-height: 550px) {
+@media (max-height: 600px) {
   .widget {
-    position: fixed;
-    height: 80vh;
-    width: 70%;
-    font-family: 'Noto Sans', sans-serif;
-    background: linear-gradient(120deg, #fdff78, #cfbb21);
-    border-radius: 1.25rem;
-    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3),
-      0 6px 6px 0 rgba(0, 0, 0, 0.15);
-    max-width: 100%;
-    margin: 2rem;
-    overflow: hidden; /* Hide any overflowing content */
-  }
-
-  .components {
-    display: flex;
-    justify-content: flex-start;
+    max-height: 90vh;
+    overflow-y: auto;
   }
 }

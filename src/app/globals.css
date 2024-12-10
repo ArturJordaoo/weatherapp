@@ -1,7 +1,26 @@
 :root {
-	background-image: url(../../public/backgroung.jpg);
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-	min-height: 100vh;
+  background-image: url(../../public/backgroung.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  min-height: 100vh;
   box-sizing: border-box;
+  --text-color: #333;
+  --primary-bg-color: linear-gradient(120deg, #fdff78, #cfbb21);
+  --widget-padding: 1.5rem;
+  --border-radius: 1.25rem;
+  --box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: 'Noto Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
 }
